@@ -1,0 +1,2 @@
+export const site = { name: "XpertEO", origin: "https://xperteo.houngbedjinono855.chatgpt.site", description: "Des sites stratégiques conçus pour être trouvés, compris et choisis. Stratégie, SEO, recherche IA et conversion." };
+export function meta(title: string, description: string, path: string) { return { title, description, alternates: { canonical: site.origin + path }, openGraph: { title: title + " | XpertEO", description, url: site.origin + path, locale: "fr_FR", type: "website" as const }, twitter: { card: "summary" as const, title, description } }; }

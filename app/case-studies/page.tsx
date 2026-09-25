@@ -1,0 +1,8 @@
+import Link from "@/components/site-link";
+import { PageIntro, CTA } from "@/components/site-shell";
+import { ProjectGrid } from "@/components/project-grid";
+import { meta } from "@/lib/site";
+import { getPublished } from "@/lib/db";
+export const dynamic="force-dynamic";
+export const metadata=meta("Réalisations : les projets XpertEO","Découvrez Minsii Bénin, ALBI International et Faithful Matchmaker : trois projets réalisés de la conception à la mise en ligne.","/case-studies");
+export default async function Page(){let items:Awaited<ReturnType<typeof getPublished>>=[];try{items=await getPublished("case-study")}catch{}return <><PageIntro label="NOS RÉALISATIONS" title="Des idées différentes. Une même exigence." description="Éducation, engagement associatif, rencontres : des projets réalisés de A à Z, de la conception à la mise en ligne. Découvrez les univers et les parcours construits pour chacun."/><section className="wrap content-section"><ProjectGrid/></section>{items.length>0&&<section className="wrap content-section"><h2>Études de cas complémentaires</h2><div className="service-grid related-grid">{items.map(a=><Link className="resource-card" key={a.id} href={"/case-studies/"+a.slug}><h3>{a.title}</h3><p>{a.excerpt}</p></Link>)}</div></section>}<section className="wrap conversion-band"><div><span className="eyebrow">VOTRE PROJET A SON PROPRE CONTEXTE</span><h2>Construisons le parcours qui lui correspond.</h2><p>Partagez votre activité, vos publics et votre objectif. Nous définirons ensemble les pages et les fonctionnalités utiles.</p></div><CTA light>Parler de mon projet</CTA></section></>}

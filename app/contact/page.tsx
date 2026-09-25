@@ -1,0 +1,5 @@
+import { PageIntro } from "@/components/site-shell";
+import { LeadForm } from "@/components/lead-form";
+import { meta } from "@/lib/site";
+export const metadata = meta("Contact", "Une question, une refonte ou un nouveau site ? Décrivez votre besoin pour préparer un échange utile.", "/contact");
+export default function Page() { return <><PageIntro label="CONTACT" title="Parlons de votre prochain projet." description="Une question, une refonte ou un nouveau site ? Décrivez votre besoin pour préparer un échange utile."/><section className="wrap content-section form-layout"><div className="form-wrap"><LeadForm source="contact"/></div><aside className="form-info"><h2>Un point de départ.<br />Pas un engagement.</h2><ol><li>Vous décrivez votre activité et votre besoin.</li><li>Nous prenons connaissance de votre contexte.</li><li>Nous précisons ensemble le périmètre et les prochaines étapes.</li></ol><p>Le diagnostic est une demande d’analyse humaine. Il ne produit pas de score automatique et ne garantit aucun résultat commercial.</p></aside></section></>; }
