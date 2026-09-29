@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 // The site can be framed by itself or the ChatGPT preview. Other origins
 // remain blocked. X-Frame-Options: SAMEORIGIN would reject ChatGPT's frame.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self'${isDev ? " ws: wss: http: https:" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

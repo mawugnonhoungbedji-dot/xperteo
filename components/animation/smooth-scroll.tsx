@@ -19,7 +19,32 @@ export function SmoothScroll() {
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize Lenis
+    // Prevent mobile URL bar resize from jittering scroll triggers
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+    });
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // On mobile, use native touch scrolling and bind window scroll directly to ScrollTrigger
+      const handleNativeScroll = () => {
+        ScrollTrigger.update();
+      };
+
+      window.addEventListener("scroll", handleNativeScroll, { passive: true });
+
+      const refreshTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 350);
+
+      return () => {
+        clearTimeout(refreshTimer);
+        window.removeEventListener("scroll", handleNativeScroll);
+      };
+    }
+
+    // On Desktop: Initialize Lenis for buttery smooth mouse wheel scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -27,14 +52,15 @@ export function SmoothScroll() {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1.5,
       infinite: false,
     });
 
     lenisRef.current = lenis;
 
     // Connect Lenis to GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+    lenis.on("scroll", () => {
+      ScrollTrigger.update();
+    });
 
     const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
@@ -59,7 +85,12 @@ export function SmoothScroll() {
 
     document.addEventListener("click", handleAnchorClick);
 
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 400);
+
     return () => {
+      clearTimeout(refreshTimer);
       document.removeEventListener("click", handleAnchorClick);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();

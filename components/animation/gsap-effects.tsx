@@ -15,7 +15,13 @@ export function GsapEffects() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
+    const isMobile = window.innerWidth <= 768;
+
     const ctx = gsap.context(() => {
+      ScrollTrigger.config({
+        ignoreMobileResize: true,
+      });
+
       // -------------------------------------------------------------
       // 1. HERO ENTRANCE (Initial load sequence)
       // -------------------------------------------------------------
@@ -26,73 +32,73 @@ export function GsapEffects() {
         heroTl
           .fromTo(
             ".hero-kicker .eyebrow",
-            { opacity: 0, y: -25, filter: "blur(6px)" },
+            { opacity: 0, y: -25, filter: isMobile ? "none" : "blur(6px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 }
           )
           .fromTo(
             ".hero-kicker .edition",
-            { opacity: 0, y: -25, filter: "blur(6px)" },
+            { opacity: 0, y: -25, filter: isMobile ? "none" : "blur(6px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
             "-=0.6"
           )
           .fromTo(
             ".hero h1",
-            { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.96 },
-            { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, duration: 1.1 },
+            { opacity: 0, y: 40, filter: isMobile ? "none" : "blur(10px)", scale: 0.98 },
+            { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, duration: 1.0 },
             "-=0.5"
           )
           .fromTo(
             ".hero-pill",
-            { opacity: 0, scale: 0.5, rotation: -25 },
-            { opacity: 1, scale: 1, rotation: -6, duration: 0.9, ease: "back.out(2)" },
+            { opacity: 0, scale: 0.5, rotation: -20 },
+            { opacity: 1, scale: 1, rotation: -6, duration: 0.8, ease: "back.out(2)" },
             "-=0.6"
           )
           .fromTo(
             ".hero-copy p, .hero-copy .underlink",
-            { opacity: 0, y: 30, filter: "blur(4px)" },
-            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, stagger: 0.12 },
+            { opacity: 0, y: 25, filter: isMobile ? "none" : "blur(4px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, stagger: 0.1 },
             "-=0.5"
           )
           .fromTo(
             ".hero-tags span",
-            { opacity: 0, scale: 0.75, y: 15 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "back.out(1.8)" },
+            { opacity: 0, scale: 0.8, y: 12 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.06, ease: "back.out(1.8)" },
             "-=0.4"
           )
           .fromTo(
             ".search-tile",
-            { opacity: 0, y: 40, scale: 0.92, filter: "blur(8px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.85, ease: "power3.out" },
+            { opacity: 0, y: 30, scale: 0.95, filter: isMobile ? "none" : "blur(8px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power3.out" },
             "-=0.6"
           )
           .fromTo(
             ".diagnostic-tile",
-            { opacity: 0, y: 40, scale: 0.92, filter: "blur(8px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.85, ease: "power3.out" },
+            { opacity: 0, y: 30, scale: 0.95, filter: isMobile ? "none" : "blur(8px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power3.out" },
             "-=0.65"
           )
           .fromTo(
             ".photo-tile",
-            { opacity: 0, y: 45, scale: 0.95, filter: "blur(12px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1, ease: "power3.out" },
+            { opacity: 0, y: 35, scale: 0.96, filter: isMobile ? "none" : "blur(12px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" },
             "-=0.7"
           )
           .fromTo(
             ".floating-label",
-            { opacity: 0, scale: 0.6, rotation: -12 },
+            { opacity: 0, scale: 0.6, rotation: -10 },
             { opacity: 1, scale: 1, rotation: -3, duration: 0.8, ease: "back.out(1.5)" },
             "-=0.4"
           )
           .fromTo(
             ".hero-bottom",
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.7 },
+            { opacity: 1, y: 0, duration: 0.6 },
             "-=0.4"
           );
 
         // Continuous subtle floating animation for floating label
         gsap.to(".floating-label", {
-          y: -7,
+          y: -6,
           rotation: -1,
           duration: 3,
           repeat: -1,
@@ -111,7 +117,6 @@ export function GsapEffects() {
 
       // -------------------------------------------------------------
       // 2. BIDIRECTIONAL SCROLL REVEAL / MASK FOR SECTION HEADERS
-      // Scroll Down = Affiche / Scroll Up = Masque
       // -------------------------------------------------------------
       const sectionHeads = document.querySelectorAll(".section-head, .page-intro, .editorial-heading");
       sectionHeads.forEach((head) => {
@@ -121,21 +126,20 @@ export function GsapEffects() {
             items,
             {
               opacity: 0,
-              y: 40,
-              filter: "blur(8px)",
+              y: 30,
+              filter: isMobile ? "none" : "blur(8px)",
             },
             {
               opacity: 1,
               y: 0,
               filter: "blur(0px)",
-              duration: 0.8,
-              stagger: 0.12,
+              duration: 0.75,
+              stagger: 0.1,
               ease: "power3.out",
               scrollTrigger: {
                 trigger: head,
-                start: "top 88%",
-                end: "bottom top",
-                toggleActions: "play reverse play reverse",
+                start: "top 90%",
+                toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
               },
             }
           );
@@ -149,7 +153,7 @@ export function GsapEffects() {
       if (systemSection) {
         gsap.fromTo(
           systemSection,
-          { opacity: 0.5, y: 50, scale: 0.96, filter: "blur(8px)" },
+          { opacity: 0.5, y: 40, scale: 0.97, filter: isMobile ? "none" : "blur(8px)" },
           {
             opacity: 1,
             y: 0,
@@ -159,9 +163,8 @@ export function GsapEffects() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: systemSection,
-              start: "top 90%",
-              end: "bottom top",
-              toggleActions: "play reverse play reverse",
+              start: "top 92%",
+              toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
             },
           }
         );
@@ -174,30 +177,29 @@ export function GsapEffects() {
             const cardTl = gsap.timeline({
               scrollTrigger: {
                 trigger: card,
-                start: "top 85%",
-                end: "bottom top",
-                toggleActions: "play reverse play reverse",
+                start: "top 88%",
+                toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
               },
             });
 
             cardTl
               .fromTo(
                 card,
-                { opacity: 0, y: 60, scale: 0.92, filter: "blur(10px)" },
+                { opacity: 0, y: 45, scale: 0.94, filter: isMobile ? "none" : "blur(10px)" },
                 {
                   opacity: 1,
                   y: 0,
                   scale: 1,
                   filter: "blur(0px)",
                   duration: 0.8,
-                  delay: index * 0.1,
+                  delay: isMobile ? 0 : index * 0.08,
                   ease: "back.out(1.1)",
                 }
               )
               .fromTo(
                 cardElements,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: "power2.out" },
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.45, stagger: 0.06, ease: "power2.out" },
                 "-=0.35"
               );
           });
@@ -207,7 +209,7 @@ export function GsapEffects() {
         if (systemBottom) {
           gsap.fromTo(
             systemBottom,
-            { opacity: 0, y: 25 },
+            { opacity: 0, y: 20 },
             {
               opacity: 1,
               y: 0,
@@ -215,8 +217,8 @@ export function GsapEffects() {
               ease: "power3.out",
               scrollTrigger: {
                 trigger: systemBottom,
-                start: "top 92%",
-                toggleActions: "play reverse play reverse",
+                start: "top 95%",
+                toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
               },
             }
           );
@@ -229,28 +231,30 @@ export function GsapEffects() {
       const serviceItems = document.querySelectorAll(".service-list details");
       if (serviceItems.length > 0) {
         ScrollTrigger.batch(serviceItems, {
-          start: "top 88%",
+          start: "top 90%",
           onEnter: (batch) => {
             gsap.to(batch, {
               opacity: 1,
               x: 0,
               filter: "blur(0px)",
               duration: 0.7,
-              stagger: 0.12,
+              stagger: 0.1,
               ease: "power3.out",
               overwrite: "auto",
             });
           },
           onLeaveBack: (batch) => {
-            gsap.to(batch, {
-              opacity: 0,
-              x: -30,
-              filter: "blur(6px)",
-              duration: 0.45,
-              stagger: 0.08,
-              ease: "power2.in",
-              overwrite: "auto",
-            });
+            if (!isMobile) {
+              gsap.to(batch, {
+                opacity: 0,
+                x: -30,
+                filter: "blur(6px)",
+                duration: 0.45,
+                stagger: 0.08,
+                ease: "power2.in",
+                overwrite: "auto",
+              });
+            }
           },
         });
       }
@@ -266,29 +270,28 @@ export function GsapEffects() {
           const stepTl = gsap.timeline({
             scrollTrigger: {
               trigger: step,
-              start: "top 85%",
-              end: "bottom top",
-              toggleActions: "play reverse play reverse",
+              start: "top 88%",
+              toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
             },
           });
 
           stepTl
             .fromTo(
               step,
-              { opacity: 0, y: 45, filter: "blur(8px)" },
+              { opacity: 0, y: 35, filter: isMobile ? "none" : "blur(8px)" },
               {
                 opacity: 1,
                 y: 0,
                 filter: "blur(0px)",
                 duration: 0.75,
-                delay: index * 0.12,
+                delay: isMobile ? 0 : index * 0.1,
                 ease: "power3.out",
               }
             )
             .fromTo(
               stepChildren,
-              { opacity: 0, y: 15 },
-              { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: "power2.out" },
+              { opacity: 0, y: 12 },
+              { opacity: 1, y: 0, duration: 0.45, stagger: 0.06, ease: "power2.out" },
               "-=0.35"
             );
         });
@@ -300,30 +303,32 @@ export function GsapEffects() {
       const projectArticles = document.querySelectorAll(".project-card, .decision-card, .resource-card, .service-box");
       if (projectArticles.length > 0) {
         ScrollTrigger.batch(projectArticles, {
-          start: "top 88%",
+          start: "top 90%",
           onEnter: (batch) => {
             gsap.to(batch, {
               opacity: 1,
               y: 0,
               scale: 1,
               filter: "blur(0px)",
-              duration: 0.8,
-              stagger: 0.12,
+              duration: 0.75,
+              stagger: 0.1,
               ease: "power3.out",
               overwrite: "auto",
             });
           },
           onLeaveBack: (batch) => {
-            gsap.to(batch, {
-              opacity: 0,
-              y: 45,
-              scale: 0.94,
-              filter: "blur(8px)",
-              duration: 0.5,
-              stagger: 0.08,
-              ease: "power2.in",
-              overwrite: "auto",
-            });
+            if (!isMobile) {
+              gsap.to(batch, {
+                opacity: 0,
+                y: 45,
+                scale: 0.94,
+                filter: "blur(8px)",
+                duration: 0.5,
+                stagger: 0.08,
+                ease: "power2.in",
+                overwrite: "auto",
+              });
+            }
           },
         });
       }
@@ -336,19 +341,18 @@ export function GsapEffects() {
         const promiseItems = promise.querySelectorAll(".eyebrow, h2, p, .underlink");
         gsap.fromTo(
           promiseItems,
-          { opacity: 0, y: 35, filter: "blur(6px)" },
+          { opacity: 0, y: 30, filter: isMobile ? "none" : "blur(6px)" },
           {
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
             duration: 0.8,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: promise,
-              start: "top 82%",
-              end: "bottom top",
-              toggleActions: "play reverse play reverse",
+              start: "top 88%",
+              toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
             },
           }
         );
@@ -359,19 +363,18 @@ export function GsapEffects() {
         const closingItems = closing.querySelectorAll(".eyebrow, h2, .button");
         gsap.fromTo(
           closingItems,
-          { opacity: 0, y: 35, filter: "blur(6px)" },
+          { opacity: 0, y: 30, filter: isMobile ? "none" : "blur(6px)" },
           {
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
             duration: 0.8,
-            stagger: 0.14,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
               trigger: closing,
-              start: "top 85%",
-              end: "bottom top",
-              toggleActions: "play reverse play reverse",
+              start: "top 88%",
+              toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
             },
           }
         );
@@ -383,28 +386,30 @@ export function GsapEffects() {
       const faqItems = document.querySelectorAll(".faq details");
       if (faqItems.length > 0) {
         ScrollTrigger.batch(faqItems, {
-          start: "top 88%",
+          start: "top 90%",
           onEnter: (batch) => {
             gsap.to(batch, {
               opacity: 1,
               y: 0,
               filter: "blur(0px)",
               duration: 0.65,
-              stagger: 0.1,
+              stagger: 0.08,
               ease: "power3.out",
               overwrite: "auto",
             });
           },
           onLeaveBack: (batch) => {
-            gsap.to(batch, {
-              opacity: 0,
-              y: 25,
-              filter: "blur(4px)",
-              duration: 0.4,
-              stagger: 0.06,
-              ease: "power2.in",
-              overwrite: "auto",
-            });
+            if (!isMobile) {
+              gsap.to(batch, {
+                opacity: 0,
+                y: 25,
+                filter: "blur(4px)",
+                duration: 0.4,
+                stagger: 0.06,
+                ease: "power2.in",
+                overwrite: "auto",
+              });
+            }
           },
         });
       }
@@ -417,19 +422,18 @@ export function GsapEffects() {
         timelineRows.forEach((row, i) => {
           gsap.fromTo(
             row,
-            { opacity: 0, y: 40, filter: "blur(6px)" },
+            { opacity: 0, y: 30, filter: isMobile ? "none" : "blur(6px)" },
             {
               opacity: 1,
               y: 0,
               filter: "blur(0px)",
               duration: 0.75,
-              delay: (i % 2) * 0.1,
+              delay: isMobile ? 0 : (i % 2) * 0.08,
               ease: "power3.out",
               scrollTrigger: {
                 trigger: row,
-                start: "top 85%",
-                end: "bottom top",
-                toggleActions: "play reverse play reverse",
+                start: "top 88%",
+                toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
               },
             }
           );
@@ -440,19 +444,18 @@ export function GsapEffects() {
       if (formSections.length > 0) {
         gsap.fromTo(
           formSections,
-          { opacity: 0, y: 35, filter: "blur(6px)" },
+          { opacity: 0, y: 25, filter: isMobile ? "none" : "blur(6px)" },
           {
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
             duration: 0.8,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: formSections[0],
-              start: "top 85%",
-              end: "bottom top",
-              toggleActions: "play reverse play reverse",
+              start: "top 88%",
+              toggleActions: isMobile ? "play none none none" : "play reverse play reverse",
             },
           }
         );

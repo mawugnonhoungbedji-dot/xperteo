@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="lenis lenis-smooth">
-      <body id="top" className="relative overflow-x-hidden selection:bg-[#ceff05] selection:text-[#111]">
+    <html lang="fr" suppressHydrationWarning>
+      <body id="top" suppressHydrationWarning className="relative overflow-x-hidden selection:bg-[#ceff05] selection:text-[#111]">
         <InteractiveSpotlight />
         <SmoothScroll />
         <GsapEffects />
