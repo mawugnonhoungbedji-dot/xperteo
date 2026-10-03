@@ -1,8 +1,6 @@
-// Fallback types for build without @cloudflare/workers-types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type D1Database = any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type R2Bucket = any;
+// Type-only references: no Cloudflare runtime module is loaded on Vercel.
+type D1Database = import("@cloudflare/workers-types").D1Database;
+type R2Bucket = import("@cloudflare/workers-types").R2Bucket;
 
 declare namespace Cloudflare {
   interface Env {

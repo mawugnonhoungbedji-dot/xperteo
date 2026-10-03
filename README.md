@@ -1,5 +1,7 @@
 # XpertEO
 
+Déploiement Next.js sur Vercel : [réglages et limites de la base de données](docs/VERCEL.md).
+
 Site privé de préparation du futur site officiel XpertEO. Interface française, design clair violet/vert citron, pages commerciales, diagnostic persistant et administration protégée.
 
 - [Architecture et périmètre réel](docs/ARCHITECTURE.md)

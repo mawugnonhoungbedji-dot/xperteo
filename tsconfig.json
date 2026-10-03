@@ -46,7 +46,6 @@
     "vite.config.ts",
     "examples",
     "vendor",
-    "db",
     "drizzle"
   ]
 }
