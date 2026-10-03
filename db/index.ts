@@ -1,9 +1,12 @@
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
 import * as schema from "./schema";
+
 export function getDb() {
-    if (!env.DB) {
-        throw new Error("Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database.");
-    }
-    return drizzle(env.DB, { schema });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const globalEnv = (globalThis as unknown as { env?: { DB?: any } })?.env;
+  if (!globalEnv?.DB) {
+    throw new Error("Cloudflare D1 binding `DB` is unavailable.");
+  }
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { drizzle } = require("drizzle-orm/d1");
+  return drizzle(globalEnv.DB, { schema });
 }

@@ -45,6 +45,8 @@
     "scripts",
     "vite.config.ts",
     "examples",
-    "vendor"
+    "vendor",
+    "db",
+    "drizzle"
   ]
 }
