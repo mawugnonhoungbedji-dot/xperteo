@@ -1,5 +1,9 @@
 # XpertEO — Gestion, déploiement et maintenance
 
+La version Vercel prépare désormais l’envoi des nouvelles demandes par email.
+Voir [EMAIL.md](EMAIL.md) pour sa configuration et [SECURITY-AUDIT.md](SECURITY-AUDIT.md)
+pour les contrôles et limites. Les sections Sites/D1 ci-dessous décrivent le fonctionnement historique.
+
 ## Gestion des demandes
 
 Ouvrir `/admin` avec le compte ChatGPT propriétaire autorisé. Le serveur vérifie l’identité et la liste `ADMIN_EMAILS`. Les statuts disponibles sont nouveau, contacté, qualifié, appel réservé, proposition, gagné et perdu. Le statut « appel réservé » est un état de suivi manuel, pas un calendrier connecté.

@@ -15,7 +15,7 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
-  "frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com",
+  process.env.VERCEL === "1" ? "frame-ancestors 'self'" : "frame-ancestors 'self' https://chatgpt.com https://*.chatgpt.com",
 ].join("; ");
 
 export function middleware(request: NextRequest) {

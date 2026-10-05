@@ -28,19 +28,19 @@ Référence : [documentation ESLint de Next.js 15](https://nextjs.org/docs/15/pa
 Les types Cloudflare sont importés uniquement comme types ; le build Next.js
 ne doit pas importer le module d'exécution `cloudflare:workers`.
 
-## Base de données : étape distincte à prévoir
+## Emails et base de données
 
 Vercel ne fournit pas le binding Cloudflare D1 `DB` attendu par `lib/db.ts`.
-La correction de compilation ne migre pas la base de données.
+Les demandes sont désormais préparées pour un envoi direct par email :
+voir [configuration Resend et protection contre les abus](EMAIL.md).
 
 - Les pages et les articles intégrés au code peuvent s'afficher sans D1.
-- Sans connexion à la base, les formulaires `/api/leads` et les événements
-  `/api/events` renvoient une erreur 503 ; les demandes ne sont pas enregistrées.
+- Les formulaires `/api/leads` nécessitent les paramètres Resend et Upstash ;
+  sans eux, l’API retourne 503 et conserve les champs côté navigateur.
+- Sans D1, `/api/events` ignore les événements et retourne 204.
 - Les contenus stockés uniquement dans D1 ne seront pas disponibles.
 
-Avant la mise en service des formulaires, connecter une base accessible depuis
-Vercel et adapter les requêtes ainsi que la limitation de débit. Une simple
-variable d'environnement nommée `DB` ne remplace pas un binding D1.
+Une simple variable d'environnement nommée `DB` ne remplace pas un binding D1.
 Ne jamais placer de secret de base de données dans une variable `NEXT_PUBLIC_*`.
 
 Mettre également à jour l'origine publique dans `lib/site.ts` lors du choix du

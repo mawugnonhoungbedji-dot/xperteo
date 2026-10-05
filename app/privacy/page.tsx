@@ -1,4 +1,23 @@
 import { PageIntro } from "@/components/site-shell";
 import { meta } from "@/lib/site";
+
 export const metadata = { ...meta("Confidentialité", "Comment les demandes et les préférences de mesure sont traitées sur XpertEO.", "/privacy"), robots: { index: false, follow: true } };
-export default function Page() { return <><PageIntro label="CONFIDENTIALITÉ" title="Vos informations ont une fonction précise." description="Version de préparation : les coordonnées du responsable et la durée de conservation doivent être complétées avant ouverture au public."/><section className="wrap content-section readable prose"><h2>Demandes de diagnostic et de contact</h2><p>Le formulaire enregistre votre nom, votre entreprise, votre email et les informations que vous renseignez sur votre besoin. Elles servent à étudier votre demande et à y répondre. Les champs obligatoires sont signalés.</p><h2>Accès et hébergement</h2><p>Les demandes sont conservées dans une base de données et accessibles uniquement aux administrateurs autorisés. Ce site utilise l’infrastructure d’hébergement Sites et Cloudflare. Une clé technique temporaire de limitation des soumissions contribue à prévenir les abus ; elle ne contient pas votre adresse IP en clair.</p><h2>Mesure optionnelle</h2><p>La mesure de navigation est désactivée par défaut. Si vous l’activez dans les préférences du pied de page, le site enregistre le type d’événement, la page et la date, sans email ni identifiant de visiteur. Aucune publicité tierce ni Google Analytics n’est activé. Votre choix est conservé localement dans votre navigateur.</p><h2>Conservation et droits</h2><p>Responsable du traitement : à renseigner. Contact pour l’exercice des droits : à renseigner. Durées de conservation, base juridique et éventuels transferts : à valider selon l’établissement de l’entreprise et ses obligations. Le gestionnaire peut supprimer une demande depuis l’espace privé.</p><p>Ne transmettez pas de mot de passe ni de données sensibles dans les champs libres.</p></section></>; }
+
+export default function Page() {
+  return <>
+    <PageIntro label="CONFIDENTIALITÉ" title="Vos informations ont une fonction précise." description="Les coordonnées du responsable et les durées de conservation restent à compléter." />
+    <section className="wrap content-section readable prose">
+      <h2>Demandes de diagnostic et de contact</h2>
+      <p>Votre nom, votre entreprise, votre email et les informations que vous renseignez servent à étudier votre demande et à vous répondre. Les champs obligatoires sont signalés. Une fois le service d’envoi activé, votre demande est transmise par email à l’équipe XpertEO via Resend. Votre adresse permet à l’équipe de vous répondre directement.</p>
+      <h2>Accès et hébergement</h2>
+      <p>Le site est hébergé sur Vercel. Les nouvelles demandes ne sont pas enregistrées dans une base de données du site : elles sont traitées par le service d’envoi et la messagerie destinataire. Seules les personnes habilitées par XpertEO doivent accéder à cette messagerie. Un message peut être conservé par ces services selon leurs paramètres de conservation.</p>
+      <h2>Protection contre les abus</h2>
+      <p>Des compteurs temporaires dans Upstash limitent les envois répétés. Ils utilisent une empreinte protégée de l’adresse IP et expirent au bout d’une heure. Ils ne contiennent ni le texte de votre demande ni votre adresse email. Les prestataires d’hébergement peuvent également traiter des données techniques de connexion.</p>
+      <h2>Mesure optionnelle</h2>
+      <p>Votre choix de mesure est conservé localement dans votre navigateur. Le stockage des événements de navigation est actuellement inactif sur la version Vercel. Aucun service de publicité tierce ni Google Analytics n’est activé dans le code du site.</p>
+      <h2>Conservation et droits</h2>
+      <p>Responsable du traitement et contact pour l’exercice des droits : à renseigner. Les durées de conservation des messages, la base juridique et les éventuels transferts doivent être précisés par XpertEO selon son activité et les services configurés.</p>
+      <p>Ne transmettez pas de mot de passe ni de données sensibles dans les champs libres.</p>
+    </section>
+  </>;
+}
