@@ -12,7 +12,7 @@ export default function Page() {
       <h2>Accès et hébergement</h2>
       <p>Le site est hébergé sur Vercel. Les nouvelles demandes ne sont pas enregistrées dans une base de données du site : elles sont traitées par le service d’envoi et la messagerie destinataire. Seules les personnes habilitées par XpertEO doivent accéder à cette messagerie. Un message peut être conservé par ces services selon leurs paramètres de conservation.</p>
       <h2>Protection contre les abus</h2>
-      <p>Des compteurs temporaires dans Upstash limitent les envois répétés. Ils utilisent une empreinte protégée de l’adresse IP et expirent au bout d’une heure. Ils ne contiennent ni le texte de votre demande ni votre adresse email. Les prestataires d’hébergement peuvent également traiter des données techniques de connexion.</p>
+      <p>Des compteurs temporaires limitent les envois répétés. Ils sont conservés dans la mémoire du serveur ou, lorsque ce service est activé, dans Upstash. Les quotas sont renouvelés chaque heure. Ces compteurs utilisent une empreinte protégée de l’adresse IP et ne contiennent ni le texte de votre demande ni votre adresse email. Les prestataires d’hébergement peuvent également traiter des données techniques de connexion.</p>
       <h2>Mesure optionnelle</h2>
       <p>Votre choix de mesure est conservé localement dans votre navigateur. Le stockage des événements de navigation est actuellement inactif sur la version Vercel. Aucun service de publicité tierce ni Google Analytics n’est activé dans le code du site.</p>
       <h2>Conservation et droits</h2>

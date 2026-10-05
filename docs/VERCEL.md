@@ -37,13 +37,16 @@ Les demandes sont désormais préparées pour un envoi direct par email :
 voir [configuration SMTP LWS et protection contre les abus](EMAIL.md).
 
 - Les pages et les articles intégrés au code peuvent s'afficher sans D1.
-- Les formulaires `/api/leads` nécessitent les paramètres SMTP LWS et Upstash ;
-  sans eux, l’API retourne 503 et conserve les champs côté navigateur.
+- Les formulaires `/api/leads` nécessitent les paramètres SMTP LWS.
+  Sans Redis, une limite temporaire en mémoire par instance protège les envois.
+  Laisser les deux variables Upstash absentes ou vides pour ce mode.
+  Une configuration Redis partielle ou en panne retourne 503, sans repli silencieux.
 - Sans D1, `/api/events` ignore les événements et retourne 204.
 - Les contenus stockés uniquement dans D1 ne seront pas disponibles.
 
 Une simple variable d'environnement nommée `DB` ne remplace pas un binding D1.
 Ne jamais placer de secret de base de données dans une variable `NEXT_PUBLIC_*`.
 
-Mettre également à jour l'origine publique dans `lib/site.ts` lors du choix du
-domaine final, pour les liens canoniques et le sitemap.
+L’origine publique dans `lib/site.ts` est `https://www.e-xperteo.com`.
+Elle est partagée par le sitemap, robots.txt, les liens canoniques et Open Graph.
+Après déploiement, vérifier `/sitemap.xml` et `/robots.txt` sur ce domaine.

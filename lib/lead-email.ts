@@ -1,5 +1,6 @@
 import { z } from "zod";
 import nodemailer from "nodemailer";
+import { DeliveryError } from "./delivery-error";
 import type { leadSchema } from "./validation";
 
 type Lead = z.infer<typeof leadSchema>;
@@ -12,9 +13,15 @@ export async function sendLeadEmail(lead: Lead) {
   const host = process.env.SMTP_HOST?.trim();
   const port = process.env.SMTP_PORT || "465";
   const pass = process.env.SMTP_PASSWORD;
-  if (!to.success || !from.success || !user.success || user.data !== from.data || !pass ||
-      !host || !/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(host) ||
-      !["465", "587"].includes(port)) throw new Error("Email service unavailable");
+  if (!to.success) throw new DeliveryError("smtp_recipient_config");
+  if (!from.success) throw new DeliveryError("smtp_sender_config");
+  if (!user.success) throw new DeliveryError("smtp_user_config");
+  if (user.data !== from.data) throw new DeliveryError("smtp_sender_mismatch");
+  if (!pass) throw new DeliveryError("smtp_password_missing");
+  if (!host || !/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(host)) {
+    throw new DeliveryError("smtp_host_config");
+  }
+  if (!["465", "587"].includes(port)) throw new DeliveryError("smtp_port_config");
   const text = [
     `Nouvelle demande XpertEO — ${lead.source === "diagnostic" ? "diagnostic" : "contact"}`,
     `Référence : ${lead.id}`, "",
@@ -38,7 +45,7 @@ export async function sendLeadEmail(lead: Lead) {
       text, messageId: `<xperteo-${lead.id}@${from.data.split("@")[1]}>`,
     });
     if (!result.accepted?.includes(to.data) || result.rejected?.length) {
-      throw new Error("Email service unavailable");
+      throw new DeliveryError("smtp_recipient_rejected");
     }
   } finally {
     transport.close();

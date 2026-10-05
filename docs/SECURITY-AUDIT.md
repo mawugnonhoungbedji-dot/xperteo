@@ -20,7 +20,7 @@ qui restent à configurer.
 
 | Priorité | Constat | Traitement |
 |---|---|---|
-| Haute avant activation email | Limitation dépendant de D1 et d’un en-tête Cloudflare non fiable sur Vercel. | Compteurs Redis atomiques partagés, IP issue de Vercel, empreinte HMAC avec secret, refus en cas de panne. Configuration Upstash requise. |
+| Protection temporaire | Limitation dépendant de D1 et d’un en-tête Cloudflare non fiable sur Vercel. | IP issue de Vercel, empreinte HMAC. Sans Redis : compteurs bornés en mémoire par instance. Avec Redis : compteurs atomiques partagés et refus en cas de panne. |
 | Haute, disponibilité | Formulaires inutilisables sans binding D1. | Envoi SMTP LWS ; plus d’écriture des nouvelles demandes en D1. Activation requise. |
 | Moyenne, risque latent | Anciennes fonctions d’identité faisant confiance aux en-têtes Sites. Aucune route admin active trouvée. | Identité refusée sur Vercel et suppression de l’ancien helper admin inutilisé. Ne pas réutiliser ces en-têtes comme authentification. |
 | Moyenne | Dépendances signalées par le registre. | Next.js 15.5.27 et versions corrigées de PostCSS, Babel, Browserslist, baseline-browser-mapping et fast-uri. Audit de production final sans alerte connue. |
@@ -53,7 +53,8 @@ Les routes API reçoivent `Cache-Control: no-store` via le middleware.
 - Même UUID utilisé dans le Message-ID SMTP ; aucune déduplication garantie par SMTP.
 - SMTP chiffré avec certificat vérifié, HTTPS vers Redis sans redirection, délais limités.
 - Confirmation uniquement après une réponse valide du service d’envoi.
-- Erreurs publiques génériques ; journalisation d’un code fixe sans contenu ni secret.
+- Erreurs publiques génériques ; journalisation de l’étape et d’un code de cause
+  issu d’une liste fermée, sans contenu, secret ni réponse brute du fournisseur.
 - Double soumission immédiate bloquée côté formulaire.
 
 ## Validation
@@ -67,9 +68,13 @@ correctifs transitifs sont verrouillés par des overrides ciblés. Les exception
 au délai de publication pnpm portent uniquement sur les versions exactes du
 correctif Next.js 15.5.27, sans désactiver globalement la politique.
 
-Les douze tests de `npm run test:security` passent : origine, validation, taille
+Les dix-sept tests de `npm run test:security` passent : origine, validation, taille
 du corps, destinataire fixe, Reply-To, TLS obligatoire, identité SMTP, quotas,
 absence de configuration, pannes des fournisseurs et traitement de l’adresse IP.
+Ils couvrent aussi l’envoi sans Redis, les quotas locaux, leur renouvellement
+horaire et le refus d’une configuration Redis partielle.
+Les diagnostics SMTP sont également vérifiés : identification des erreurs et
+absence de données sensibles dans les logs ou la réponse publique.
 Les fournisseurs sont simulés ; aucun email réel n’a été envoyé.
 Le build Next.js 15.5.27 et la génération des 14 pages statiques réussissent.
 ESLint ne signale aucune erreur et six avertissements d’imports inutilisés préexistants.
@@ -80,10 +85,12 @@ déploiement reste à valider.
 ## Limites et actions restantes
 
 1. Destinataire confirmé : `contact@e-xperteo.com`, messagerie LWS, serveur
-   `mail.e-xperteo.com`. Configurer les secrets SMTP et Upstash, confirmer les
+   `mail.e-xperteo.com`. Configurer les secrets SMTP, puis Upstash ultérieurement, confirmer les
    paramètres LWS et tester la réception puis le bouton Répondre.
 2. Les limites horaires et le champ piège limitent les abus, sans garantir l’arrêt
-   de robots distribués. Le plafond global peut aussi être épuisé par un attaquant.
+   de robots distribués. Sans Redis, les compteurs sont propres à chaque instance
+   et perdus au redémarrage ; les quotas à l’échelle du site ne sont pas garantis.
+   Le plafond global peut aussi être épuisé par un attaquant.
    Prévoir une règle WAF ou un challenge si l’usage réel le justifie.
 3. La CSP autorise encore les scripts inline pour le rendu Next.js actuel. Une
    CSP à nonce nécessiterait une adaptation du rendu et du cache ; elle n’est pas

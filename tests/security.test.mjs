@@ -26,6 +26,7 @@ after(cleanup);
 const { POST } = require(join(build, "app/api/leads/route.js"));
 const { payload } = require(join(build, "lib/security.js"));
 const { rateLimit } = require(join(build, "lib/rate-limit.js"));
+const { deliveryFailureReason } = require(join(build, "lib/delivery-error.js"));
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };
 after(() => { globalThis.fetch = originalFetch; process.env = originalEnv; nodemailer.createTransport = originalCreateTransport; });
@@ -177,4 +178,89 @@ test("uses trusted Vercel address and sends only a keyed digest to Redis", async
   delete process.env.VERCEL;
   try { await assert.rejects(rateLimit(request(), "leads")); }
   finally { process.env.VERCEL = "1"; }
+});
+
+test("without Redis, SMTP works and local limits block repeated submissions", async () => {
+  const saved = { ...process.env };
+  delete process.env.UPSTASH_REDIS_REST_URL;
+  delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  delete process.env.RATE_LIMIT_SECRET;
+  try {
+    const calls = mock();
+    for (let i = 0; i < 5; i++) assert.equal((await POST(request())).status, 201);
+    assert.equal((await POST(request())).status, 429);
+    assert.equal((await POST(request(valid(), { "x-vercel-forwarded-for": "203.0.113.11" }))).status, 201);
+    assert.equal(calls.filter(call => call.smtp).length, 6);
+    assert.equal(calls.some(call => call.url), false);
+    await assert.rejects(rateLimit(request(valid(), { "x-vercel-forwarded-for": "invalid" }), "leads"));
+  } finally { process.env = saved; }
+});
+
+test("local global quota is bounded and expires at the next hourly window", async () => {
+  const saved = { ...process.env };
+  const now = Date.now;
+  delete process.env.UPSTASH_REDIS_REST_URL;
+  delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  try {
+    Date.now = () => 3600000 * 100;
+    for (let i = 1; i <= 100; i++) {
+      assert.equal(await rateLimit(request(valid(), { "x-vercel-forwarded-for": `192.0.2.${i}` }), "leads"), true);
+    }
+    assert.equal(await rateLimit(request(valid(), { "x-vercel-forwarded-for": "192.0.2.101" }), "leads"), false);
+    Date.now = () => 3600000 * 101;
+    assert.equal(await rateLimit(request(), "leads"), true);
+  } finally { process.env = saved; Date.now = now; }
+});
+
+test("partially configured Redis never silently falls back to local limits", async () => {
+  const saved = { ...process.env };
+  try {
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    const calls = mock();
+    assert.equal((await POST(request())).status, 503);
+    assert.equal(calls.length, 0);
+  } finally { process.env = saved; }
+});
+
+test("SMTP diagnostic logs identify authentication failure without leaking data", async () => {
+  const logs = [];
+  const originalError = console.error;
+  console.error = (...args) => logs.push(args);
+  try {
+    mock();
+    nodemailer.createTransport = () => ({
+      async sendMail() { throw Object.assign(new Error("secret-password visitor@example.com"), { code: "EAUTH", response: "secret-provider-response" }); },
+      close() {},
+    });
+    const response = await POST(request());
+    assert.equal(response.status, 503);
+    assert.deepEqual(logs, [["lead_delivery_failed", { diagnostic: "smtp-v2", stage: "smtp", reason: "smtp_auth_failed" }]]);
+    const publicBody = await response.text();
+    assert.equal(publicBody.includes("smtp_auth_failed"), false);
+    assert.equal(publicBody.includes("secret"), false);
+  } finally { console.error = originalError; }
+});
+
+test("diagnostic codes are allowlisted and distinguish missing configuration", async () => {
+  assert.equal(deliveryFailureReason({ code: "ETIMEDOUT", message: "secret" }, "smtp"), "smtp_timeout");
+  assert.equal(deliveryFailureReason({ code: "ERR_TLS_CERT_ALTNAME_INVALID" }, "smtp"), "smtp_tls_failed");
+  assert.equal(deliveryFailureReason({ code: "untrusted-secret" }, "smtp"), "smtp_unavailable");
+  const originalError = console.error;
+  const saved = process.env.SMTP_PASSWORD;
+  const logs = [];
+  console.error = (...args) => logs.push(args);
+  delete process.env.SMTP_PASSWORD;
+  try {
+    mock();
+    assert.equal((await POST(request())).status, 503);
+    assert.equal(logs[0][1].reason, "smtp_password_missing");
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    assert.equal((await POST(request())).status, 503);
+    assert.equal(logs[1][1].reason, "redis_config");
+    assert.equal(logs[1][1].stage, "rate_limit");
+  } finally {
+    console.error = originalError;
+    process.env.SMTP_PASSWORD = saved;
+    process.env.UPSTASH_REDIS_REST_TOKEN = "test-token";
+  }
 });

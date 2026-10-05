@@ -1,5 +1,6 @@
 import { leadSchema } from "../../../lib/validation";
 import { sendLeadEmail } from "../../../lib/lead-email";
+import { deliveryFailureReason } from "../../../lib/delivery-error";
 import { payload, sameOrigin, rateLimit, safeError } from "../../../lib/security";
 
 export const runtime = "nodejs";
@@ -17,17 +18,19 @@ export async function POST(request: Request) {
   if (age < 1500 || age > 86400000) {
     return Response.json({ error: "Rechargez le formulaire puis réessayez." }, { status: 400 });
   }
+  let stage: "rate_limit" | "smtp" = "rate_limit";
   try {
     if (!await rateLimit(request, "leads")) {
       return Response.json({ error: "Trop de demandes. Réessayez dans une heure." }, {
         status: 429, headers: { "Retry-After": "3600" },
       });
     }
+    stage = "smtp";
     await sendLeadEmail(lead);
     return Response.json({ ok: true, reference: lead.id.slice(0, 8) }, { status: 201 });
-  } catch {
+  } catch (error) {
     // Never log form data, provider responses or credentials.
-    console.error("lead_delivery_failed");
+    console.error("lead_delivery_failed", { diagnostic: "smtp-v2", stage, reason: deliveryFailureReason(error, stage) });
     return safeError();
   }
 }
