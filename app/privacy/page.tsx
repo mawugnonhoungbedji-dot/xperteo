@@ -8,7 +8,7 @@ export default function Page() {
     <PageIntro label="CONFIDENTIALITÉ" title="Vos informations ont une fonction précise." description="Les coordonnées du responsable et les durées de conservation restent à compléter." />
     <section className="wrap content-section readable prose">
       <h2>Demandes de diagnostic et de contact</h2>
-      <p>Votre nom, votre entreprise, votre email et les informations que vous renseignez servent à étudier votre demande et à vous répondre. Les champs obligatoires sont signalés. Une fois le service d’envoi activé, votre demande est transmise par email à l’équipe XpertEO via Resend. Votre adresse permet à l’équipe de vous répondre directement.</p>
+      <p>Votre nom, votre entreprise, votre email et les informations que vous renseignez servent à étudier votre demande et à vous répondre. Les champs obligatoires sont signalés. Une fois le service d’envoi activé, votre demande est transmise par email à l’équipe XpertEO via sa messagerie LWS. Votre adresse permet à l’équipe de vous répondre directement.</p>
       <h2>Accès et hébergement</h2>
       <p>Le site est hébergé sur Vercel. Les nouvelles demandes ne sont pas enregistrées dans une base de données du site : elles sont traitées par le service d’envoi et la messagerie destinataire. Seules les personnes habilitées par XpertEO doivent accéder à cette messagerie. Un message peut être conservé par ces services selon leurs paramètres de conservation.</p>
       <h2>Protection contre les abus</h2>

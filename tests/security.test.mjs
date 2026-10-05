@@ -8,6 +8,8 @@ import { execFileSync } from "node:child_process";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const require = createRequire(import.meta.url);
+const nodemailer = require("nodemailer");
+const originalCreateTransport = nodemailer.createTransport;
 const build = mkdtempSync(join(root, ".security-tests-"));
 function cleanup() {
   assert.ok(resolve(build).startsWith(resolve(root) + sep + ".security-tests-"));
@@ -26,9 +28,10 @@ const { payload } = require(join(build, "lib/security.js"));
 const { rateLimit } = require(join(build, "lib/rate-limit.js"));
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };
-after(() => { globalThis.fetch = originalFetch; process.env = originalEnv; });
+after(() => { globalThis.fetch = originalFetch; process.env = originalEnv; nodemailer.createTransport = originalCreateTransport; });
 Object.assign(process.env, {
-  VERCEL: "1", NODE_ENV: "production", RESEND_API_KEY: "test-key-not-real",
+  VERCEL: "1", NODE_ENV: "production", SMTP_HOST: "mail.example.com", SMTP_PORT: "465",
+  SMTP_USER: "website@example.com", SMTP_PASSWORD: "test-password-not-real",
   LEADS_TO_EMAIL: "owner@example.com", LEADS_FROM_EMAIL: "website@example.com",
   UPSTASH_REDIS_REST_URL: "https://example.upstash.io", UPSTASH_REDIS_REST_TOKEN: "test-token",
   RATE_LIMIT_SECRET: "test-secret-with-at-least-32-characters",
@@ -44,14 +47,21 @@ function request(body = valid(), headers = {}) {
     origin: "https://site.example", "content-type": "application/json", "x-vercel-forwarded-for": "203.0.113.10", ...headers,
   }, body: JSON.stringify(body) });
 }
-function mock(redis = { result: 1 }, email = { id: "test-message-id" }, emailStatus = 200) {
+function mock(redis = { result: 1 }, email = { accepted: ["owner@example.com"], rejected: [] }, failure = false) {
   const calls = [];
   globalThis.fetch = async (url, init) => {
     calls.push({ url, ...init, body: JSON.parse(init.body) });
-    if (url === process.env.UPSTASH_REDIS_REST_URL) return Response.json(redis);
-    assert.equal(url, "https://api.resend.com/emails");
-    return Response.json(email, { status: emailStatus });
+    assert.equal(url, process.env.UPSTASH_REDIS_REST_URL);
+    return Response.json(redis);
   };
+  nodemailer.createTransport = options => ({
+    async sendMail(body) {
+      calls.push({ smtp: true, options, body });
+      if (failure) throw new Error("secret-provider-detail");
+      return email;
+    },
+    close() { calls.push({ closed: true }); },
+  });
   return calls;
 }
 
@@ -75,19 +85,24 @@ test("limits streamed payloads without relying on Content-Length", async () => {
   await assert.rejects(payload(request(valid(), { "content-type": "text/plain; application/json" })));
   assert.equal(calls.length, 0);
 });
-test("sends plain text to fixed recipient with visitor Reply-To and retry key", async () => {
+test("sends plain text to fixed recipient over verified TLS with visitor Reply-To", async () => {
   const calls = mock();
   const body = { ...valid(), message: "<script>alert(1)</script>", to: "attacker@example.com" };
   assert.equal((await POST(request(body))).status, 201);
   assert.equal((await POST(request(body))).status, 201);
-  const emails = calls.filter(call => call.url === "https://api.resend.com/emails");
+  const emails = calls.filter(call => call.smtp);
   assert.deepEqual(emails[0].body.to, ["owner@example.com"]);
-  assert.equal(emails[0].body.reply_to, "visitor@example.com");
+  assert.equal(emails[0].body.replyTo, "visitor@example.com");
   assert.equal(emails[0].body.from, "website@example.com");
   assert.equal(emails[0].body.html, undefined);
   assert.ok(emails[0].body.text.includes(body.message));
-  assert.equal(emails[0].headers["Idempotency-Key"], emails[1].headers["Idempotency-Key"]);
-  assert.equal(emails[0].redirect, "error");
+  assert.equal(emails[0].body.messageId, emails[1].body.messageId);
+  assert.equal(emails[0].options.secure, true);
+  assert.equal(emails[0].options.port, 465);
+  assert.equal(emails[0].options.tls.rejectUnauthorized, true);
+  assert.equal(emails[0].options.disableFileAccess, true);
+  assert.equal(emails[0].options.disableUrlAccess, true);
+  assert.equal(calls.filter(call => call.closed).length, 2);
 });
 test("rate limit blocks email delivery", async () => {
   const calls = mock({ result: 0 });
@@ -104,27 +119,53 @@ test("Redis errors and malformed replies fail closed", async () => {
   }
 });
 test("unconfigured email and limiter fail closed", async () => {
-  for (const name of ["RESEND_API_KEY", "LEADS_TO_EMAIL", "RATE_LIMIT_SECRET"]) {
+  for (const name of ["SMTP_PASSWORD", "SMTP_USER", "SMTP_HOST", "LEADS_TO_EMAIL", "RATE_LIMIT_SECRET"]) {
     const value = process.env[name];
     delete process.env[name];
     try {
       const calls = mock();
       assert.equal((await POST(request())).status, 503);
-      assert.equal(calls.some(call => call.url === "https://api.resend.com/emails"), false);
+      assert.equal(calls.some(call => call.smtp), false);
     } finally { process.env[name] = value; }
   }
 });
 test("provider refusal or malformed acceptance never produces success or leaks details", async () => {
-  for (const [body, status] of [[{ error: "secret-provider-detail" }, 500], [{}, 200]]) {
-    mock({ result: 1 }, body, status);
+  for (const [body, failure] of [[{}, true], [{}, false], [{ accepted: [], rejected: ["owner@example.com"] }, false]]) {
+    const calls = mock({ result: 1 }, body, failure);
     const response = await POST(request());
     assert.equal(response.status, 503);
     assert.equal((await response.text()).includes("secret-provider-detail"), false);
+    assert.ok(calls.some(call => call.closed));
   }
 });
 test("network errors keep the submission retryable", async () => {
   globalThis.fetch = async () => { throw new Error("network failure"); };
   assert.equal((await POST(request())).status, 503);
+});
+
+test("SMTP configuration rejects insecure ports and mismatched sender identities", async () => {
+  for (const [key, value] of [["SMTP_PORT", "25"], ["SMTP_PORT", "0"],
+    ["SMTP_USER", "other@example.com"], ["SMTP_HOST", "https://mail.example.com"]]) {
+    const original = process.env[key];
+    process.env[key] = value;
+    try {
+      const calls = mock();
+      assert.equal((await POST(request())).status, 503);
+      assert.equal(calls.some(call => call.smtp), false);
+    } finally { process.env[key] = original; }
+  }
+});
+
+test("SMTP on port 587 requires STARTTLS and certificate validation", async () => {
+  process.env.SMTP_PORT = "587";
+  try {
+    const calls = mock();
+    assert.equal((await POST(request())).status, 201);
+    const { options } = calls.find(call => call.smtp);
+    assert.equal(options.secure, false);
+    assert.equal(options.requireTLS, true);
+    assert.equal(options.tls.rejectUnauthorized, true);
+  } finally { process.env.SMTP_PORT = "465"; }
 });
 test("uses trusted Vercel address and sends only a keyed digest to Redis", async () => {
   const calls = mock();

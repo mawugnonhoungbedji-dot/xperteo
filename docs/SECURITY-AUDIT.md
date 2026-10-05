@@ -21,7 +21,7 @@ qui restent à configurer.
 | Priorité | Constat | Traitement |
 |---|---|---|
 | Haute avant activation email | Limitation dépendant de D1 et d’un en-tête Cloudflare non fiable sur Vercel. | Compteurs Redis atomiques partagés, IP issue de Vercel, empreinte HMAC avec secret, refus en cas de panne. Configuration Upstash requise. |
-| Haute, disponibilité | Formulaires inutilisables sans binding D1. | Envoi direct Resend ; plus d’écriture des nouvelles demandes en D1. Activation requise. |
+| Haute, disponibilité | Formulaires inutilisables sans binding D1. | Envoi SMTP LWS ; plus d’écriture des nouvelles demandes en D1. Activation requise. |
 | Moyenne, risque latent | Anciennes fonctions d’identité faisant confiance aux en-têtes Sites. Aucune route admin active trouvée. | Identité refusée sur Vercel et suppression de l’ancien helper admin inutilisé. Ne pas réutiliser ces en-têtes comme authentification. |
 | Moyenne | Dépendances signalées par le registre. | Next.js 15.5.27 et versions corrigées de PostCSS, Babel, Browserslist, baseline-browser-mapping et fast-uri. Audit de production final sans alerte connue. |
 | Faible | Intégration du site dans des cadres ChatGPT autorisée par la CSP héritée. | Sur Vercel, restriction à la même origine. |
@@ -50,15 +50,15 @@ Les routes API reçoivent `Cache-Control: no-store` via le middleware.
 - Destinataire et expéditeur fixes, validés et définis par variables serveur.
 - Adresse du visiteur placée dans `Reply-To`. Aucun destinataire issu du formulaire.
 - Message texte brut et sujet prédéfini ; aucun HTML utilisateur interprété.
-- Même UUID utilisé comme clé d’idempotence Resend pour les reprises.
-- Appels HTTPS vers Resend et Redis, redirections refusées, délais maximaux.
+- Même UUID utilisé dans le Message-ID SMTP ; aucune déduplication garantie par SMTP.
+- SMTP chiffré avec certificat vérifié, HTTPS vers Redis sans redirection, délais limités.
 - Confirmation uniquement après une réponse valide du service d’envoi.
 - Erreurs publiques génériques ; journalisation d’un code fixe sans contenu ni secret.
 - Double soumission immédiate bloquée côté formulaire.
 
 ## Validation
 
-Le 5 octobre, `pnpm audit --prod --json` retourne zéro alerte sur 252 dépendances
+Le 5 octobre, après ajout de Nodemailer 10.0.12, `pnpm audit --prod --json` retourne zéro alerte sur 253 dépendances
 de production et optionnelles. Le contrôle initial signalait neuf alertes
 (quatre élevées, quatre modérées, une faible). Cela ne constitue pas une preuve
 d’absence de failles inconnues et ne couvre pas toutes les dépendances de développement.
@@ -67,18 +67,21 @@ correctifs transitifs sont verrouillés par des overrides ciblés. Les exception
 au délai de publication pnpm portent uniquement sur les versions exactes du
 correctif Next.js 15.5.27, sans désactiver globalement la politique.
 
-Les dix tests de `pnpm run test:security` passent : origine, validation, taille
-du corps, destinataire fixe, clé de reprise, quotas, absence de configuration,
-pannes des fournisseurs et traitement de l’adresse IP. Les fournisseurs sont simulés.
+Les douze tests de `npm run test:security` passent : origine, validation, taille
+du corps, destinataire fixe, Reply-To, TLS obligatoire, identité SMTP, quotas,
+absence de configuration, pannes des fournisseurs et traitement de l’adresse IP.
+Les fournisseurs sont simulés ; aucun email réel n’a été envoyé.
 Le build Next.js 15.5.27 et la génération des 14 pages statiques réussissent.
 ESLint ne signale aucune erreur et six avertissements d’imports inutilisés préexistants.
-Ces commandes ont été exécutées sous Windows avec Node.js 24.13.0 ; Vercel est
-configuré pour Node.js 22.x et doit encore valider le nouveau déploiement.
+Ces commandes ont été exécutées sous Windows avec Node.js 24.13.0. Le projet
+déclare désormais Node.js 24.x ; le réglage Vercel doit être aligné et le nouveau
+déploiement reste à valider.
 
 ## Limites et actions restantes
 
-1. Destinataire confirmé : `contact@e-xperteo.com`. Confirmer le service email ; configurer les secrets,
-   vérifier le domaine expéditeur et tester la réception puis le bouton Répondre.
+1. Destinataire confirmé : `contact@e-xperteo.com`, messagerie LWS, serveur
+   `mail.e-xperteo.com`. Configurer les secrets SMTP et Upstash, confirmer les
+   paramètres LWS et tester la réception puis le bouton Répondre.
 2. Les limites horaires et le champ piège limitent les abus, sans garantir l’arrêt
    de robots distribués. Le plafond global peut aussi être épuisé par un attaquant.
    Prévoir une règle WAF ou un challenge si l’usage réel le justifie.
@@ -86,10 +89,10 @@ configuré pour Node.js 22.x et doit encore valider le nouveau déploiement.
    CSP à nonce nécessiterait une adaptation du rendu et du cache ; elle n’est pas
    incluse dans ce correctif. Cette autorisation réduit la défense contre une
    éventuelle injection HTML future ; aucune injection exploitable n’a été démontrée.
-4. Resend acceptant un message ne garantit pas sa remise : surveiller les rejets,
+4. LWS acceptant un message ne garantit pas sa remise : surveiller les rejets,
    quotas et spams. Aucune file de secours ni reprise automatique n’a été ajoutée.
 5. Compléter l’identité du responsable, le contact confidentialité et les durées
-   de conservation. Sécuriser les comptes Vercel, Resend, Redis et messagerie avec
+   de conservation. Sécuriser les comptes Vercel, LWS, Redis et messagerie avec
    des accès limités et l’authentification multifacteur.
 6. L’ancienne base D1 n’est ni migrée ni supprimée. Les contenus exclusivement en
    D1 restent indisponibles. Sans D1, les événements sont ignorés sans appel Redis.
@@ -102,7 +105,7 @@ configuré pour Node.js 22.x et doit encore valider le nouveau déploiement.
   Les préconditions publiées des failles ne sont pas toutes présentes ici : pas
   d’images distantes autorisées, pas de route racine catch-all, pas de Cache Components.
 - [En-têtes d’IP Vercel](https://vercel.com/docs/headers/request-headers).
-- [Mise en service email](EMAIL.md), incluant les références Resend et Upstash.
+- [Mise en service email](EMAIL.md), incluant les références LWS et Upstash.
 
 Cet audit est une revue ciblée avec tests automatisés, pas une certification
 ni un test d’intrusion exhaustif de l’infrastructure.

@@ -8,7 +8,9 @@ l'hébergement d'origine.
 
 - Framework : Next.js.
 - Répertoire racine : celui contenant `package.json` (`xperteo` si le dépôt contient ce sous-dossier).
-- Node.js : 22.x, comme dans `package.json`.
+- Node.js : 24.x, comme dans `package.json`. Aligner également le réglage
+  Vercel → Settings → Build and Deployment → Node.js Version sur 24.x,
+  puis redéployer pour appliquer la version au site publié.
 - Installation : `pnpm install --frozen-lockfile`.
 - Build : `pnpm run build`.
 - Output Directory : conserver la valeur par défaut de Next.js.
@@ -32,10 +34,10 @@ ne doit pas importer le module d'exécution `cloudflare:workers`.
 
 Vercel ne fournit pas le binding Cloudflare D1 `DB` attendu par `lib/db.ts`.
 Les demandes sont désormais préparées pour un envoi direct par email :
-voir [configuration Resend et protection contre les abus](EMAIL.md).
+voir [configuration SMTP LWS et protection contre les abus](EMAIL.md).
 
 - Les pages et les articles intégrés au code peuvent s'afficher sans D1.
-- Les formulaires `/api/leads` nécessitent les paramètres Resend et Upstash ;
+- Les formulaires `/api/leads` nécessitent les paramètres SMTP LWS et Upstash ;
   sans eux, l’API retourne 503 et conserve les champs côté navigateur.
 - Sans D1, `/api/events` ignore les événements et retourne 204.
 - Les contenus stockés uniquement dans D1 ne seront pas disponibles.

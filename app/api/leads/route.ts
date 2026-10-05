@@ -3,6 +3,7 @@ import { sendLeadEmail } from "../../../lib/lead-email";
 import { payload, sameOrigin, rateLimit, safeError } from "../../../lib/security";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   if (!sameOrigin(request)) return Response.json({ error: "Origine non autorisée." }, { status: 403 });
