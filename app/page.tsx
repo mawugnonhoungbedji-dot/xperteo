@@ -1,4 +1,5 @@
 import { ProjectGrid } from "@/components/project-grid";
+import { HomeNarrator } from "@/components/section-narrator";
 import Link from "@/components/site-link";
 import { BrandVisual, BrandStage } from "@/components/brand-visual";
 import { ArrowUpRight, ArrowRight, Search, Sparkles, MousePointer2, Asterisk } from "lucide-react";
@@ -20,5 +21,6 @@ export default function Home() {
     <section className="section wrap content-section"><div className="section-head"><div><span className="eyebrow">UNE SÉLECTION DE RÉALISATIONS</span><h2>Des projets concrets.<br /><em>Des univers singuliers.</em></h2></div><Link className="underlink" href="/case-studies">Toutes nos réalisations →</Link></div><ProjectGrid /></section>
     <section className="promise dark-panel campaign-promise"><div className="promise-copy"><span className="eyebrow">LA CONFIANCE SE CONSTRUIT</span><h2>Des choix expliqués.<br />Des preuves vérifiables.<br /><em>Pas de promesses impossibles.</em></h2><div><p>Ni première place garantie, ni citation IA promise.<br />Un périmètre clair, une méthode et des indicateurs utiles.</p><Link href="/case-studies" className="underlink">Découvrir nos réalisations <ArrowUpRight size={18}/></Link></div></div><BrandVisual scene="profile" /></section>
     <section className="faq section wrap"><div><span className="eyebrow">VOS QUESTIONS, SIMPLEMENT</span><h2>Avant de<br /><em>vous lancer.</em></h2><Link href="/faq" className="underlink">Toutes les réponses <ArrowUpRight size={18}/></Link></div><div>{faqs.slice(1, 5).map(([q, a]) => <details key={q}><summary>{q}<span className="plus">+</span></summary><p>{a}</p></details>)}</div></section>
+    <HomeNarrator />
     </>;
 }
