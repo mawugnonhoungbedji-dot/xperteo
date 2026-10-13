@@ -28,9 +28,10 @@ Les références publiées présentent des projets réalisés. Elles ne constitu
 
 ## Réalisations et ressources
 
-- [Minsii Bénin](https://www.e-xperteo.com/case-studies/minsii) : plateforme de soutien scolaire.
+- [Bénin Royal Couture](https://www.e-xperteo.com/case-studies/benin-royal-couture) : couture sur mesure, copywriting, design et parcours de personnalisation.
+- [House Star](https://www.e-xperteo.com/case-studies/house-star) : présentation immobilière et catalogue de démonstration.
+- [iBuilder](https://www.e-xperteo.com/case-studies/ibuilder) : atelier web et IA, programme et parcours vers WhatsApp.
 - [ALBI International](https://www.e-xperteo.com/case-studies/albi-international) : site associatif.
-- [Faithful Matchmaker](https://www.e-xperteo.com/case-studies/faithful-matchmaker) : plateforme communautaire.
 - [Ressources](https://www.e-xperteo.com/resources) : guides sur la visibilité et la conversion.
 - [Questions fréquentes](https://www.e-xperteo.com/faq) : périmètre des missions et modalités de travail.
 

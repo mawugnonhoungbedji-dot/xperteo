@@ -27,9 +27,9 @@ export function ProjectGrid() {
             <Image
               src={p.image}
               alt={"Capture de la page d’accueil de " + p.name}
-              width={1348}
-              height={928}
-              sizes="(max-width: 800px) 100vw, 33vw"
+              width={p.imageWidth || 1348}
+              height={p.imageHeight || 928}
+              sizes="(max-width: 800px) 100vw, 50vw"
             />
           </Link>
           <div className="project-copy">
@@ -38,7 +38,7 @@ export function ProjectGrid() {
               <Link href={"/case-studies/" + p.slug}>{p.name}</Link>
             </h3>
             <p>{p.intro}</p>
-            <span className="project-scope">Réalisation de A à Z</span>
+            <span className="project-scope">Copywriting · Design · Développement</span>
             <Link className="underlink" href={"/case-studies/" + p.slug}>
               Découvrir le projet →
             </Link>
