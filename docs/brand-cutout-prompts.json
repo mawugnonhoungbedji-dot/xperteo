@@ -1,0 +1,46 @@
+{
+  "tool": "Built-in image_gen",
+  "transparent_background": true,
+  "images": [
+    {
+      "name": "drone",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-fca747bf-d10d-4de9-bff5-72441475ccb6.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "point-left",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-a905e308-1294-4eb0-a09f-03fcda685d67.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "profile",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-976566d4-1ca1-4d97-81f2-96098acdc44c.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "low-angle",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-048d8f06-c7c9-47d6-8b53-5f1cf22bf1e3.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "face",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-c46d862b-e25a-4a77-887c-f23e0fe769eb.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "point-right",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-639d2bf3-c042-4929-b8ec-b15d6c923ac9.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "walking",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-e80a23d5-490f-40b6-bc59-3d17afdb498e.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged.  Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    },
+    {
+      "name": "seated",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-b34f7581-ad8a-47fe-98c1-444ebb838e70.png",
+      "prompt": "Use case: background-extraction. Edit the provided XpertEO photograph. Remove ONLY the studio wall, colored gradient, floor and cast floor shadow; make all background pixels genuinely transparent alpha. Keep the SAME person precisely: face, hairstyle with fine curls, beard, expression, pose, fingers, camera perspective, purple clothing, cream trousers, shoes, fabric details, embroidered six-ray asterisk and exact XpertEO wordmark unchanged. Retain the purple cube seat as part of the subject. Preserve original framing and subject proportions. Clean photographic edges without purple/white matte halos. No checkerboard rendered into pixels, no white background, no gradients, no added grain/noise, no text added, no new props. The output is a transparent PNG cutout for layering over live CSS gradients and typography."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "Built-in image_gen",
+  "prompt": "High-resolution image restoration / super-resolution EDIT of the reference. Deliver a genuinely detailed 4K portrait image, 3072 x 3840 pixels, longest edge 3840. Preserve this exact fictional XpertEO model, face, hair, pose reading the same booklet, embroidered lime six-ray asterisk and exact white XpertEO wordmark, violet shirt, cream trousers and full-body framing. Reconstruct fine natural detail in eyelashes, hair curls, beard, fingers, woven fabric, seams and embroidery; remove compression blocks and blurry edges, without changing anatomy, identity or wardrobe. Background must remain truly transparent alpha. Remove all white blocks / stray background pixels / halos around legs and silhouette. Clean antialiased edges, no studio or floor or baked shadow, no extra grain or texture. This is a production 4K master, not a low-resolution preview. Preserve all proportions, do not add objects or text.",
+  "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-cc3d3df9-c16a-4fc8-8841-e8bcef866638.png",
+  "nativeSize": [
+    1122,
+    1402
+  ],
+  "exportSize": [
+    3072,
+    3840
+  ],
+  "method": "Restoration followed by high-quality enlargement; not native 4K generation."
+}

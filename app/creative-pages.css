@@ -1,0 +1,35 @@
+.project-showcase{margin-top:32px}
+.project-showcase h1{font-size:clamp(40px,6.5cqw,92px);line-height:1.02;letter-spacing:-.055em;margin:20px auto 24px;max-width:1160px}
+.project-showcase .brand-stage-heading>p{font-size:19px;line-height:1.65;max-width:780px;margin:0 auto;color:#f5f1ffcf}
+.project-showcase .brand-stage-scene{min-height:700px;margin-top:36px}
+.project-showcase .brand-stage-scene .brand-visual{width:min(800px,80%);height:700px;z-index:2;pointer-events:none}
+.project-showcase .brand-stage-word{top:35%;z-index:0}
+.project-backdrops{position:absolute;inset:0;z-index:1;pointer-events:none}
+.project-backdrop-card{position:absolute;width:29%;max-width:380px;border:1px solid #ffffff60;border-radius:14px;overflow:hidden;background:#faf8ff;box-shadow:0 22px 60px #07061945;transform:rotate(var(--card-angle));}
+.project-backdrop-card img{display:block;width:100%;height:auto;aspect-ratio:1.55;object-fit:cover;object-position:top}
+.project-browser-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;gap:8px;color:#40364d;font-size:12px;font-weight:600;background:#f5f1fa}
+.project-browser-bar>span:first-child{color:#9674c6;font-size:8px;white-space:nowrap}
+.project-backdrop-1{left:4%;top:12%;--card-angle:-9deg}
+.project-backdrop-2{right:4%;top:18%;--card-angle:9deg}
+.project-backdrop-3{left:7%;top:53%;--card-angle:-5deg}
+.project-showcase .brand-orbit-one{left:8%;top:4%;z-index:3}
+.project-showcase .brand-orbit-two{right:7%;bottom:13%;z-index:3}
+.brand-stage-silence .brand-stage-scene{min-height:0;margin-top:28px}
+.brand-stage-silence .brand-stage-scene .brand-visual{width:min(1100px,100%);height:820px}
+.brand-stage-law .brand-stage-scene{margin-top:28px}
+.brand-stage-law .brand-stage-scene .brand-visual{width:min(1000px,98%);height:790px}
+@media(max-width:800px){
+  .project-showcase{margin-top:16px}
+  .project-showcase h1{font-size:clamp(36px,9cqw,58px);margin-top:18px}
+  .project-showcase .brand-stage-heading>p{font-size:16px}
+  .project-showcase .brand-stage-scene{min-height:390px;margin-top:24px}
+  .project-showcase .brand-stage-scene .brand-visual{width:100%;height:390px}
+  .project-backdrop-card{width:42%;border-radius:8px}
+  .project-browser-bar{font-size:9px;padding:6px;gap:4px}
+  .project-browser-bar>span:first-child{font-size:5px}
+  .project-backdrop-1{left:2%;top:18%}.project-backdrop-2{right:2%;top:40%}.project-backdrop-3{left:53%;top:0;width:40%}
+  .project-showcase .brand-orbit-one{left:4%;top:0}.project-showcase .brand-orbit-two{right:3%;bottom:5%}
+  .brand-stage-silence .brand-stage-scene .brand-visual{height:480px}
+  .brand-stage-law .brand-stage-scene .brand-visual{height:500px}
+}
+@media(prefers-reduced-motion:reduce){.project-backdrop-card{transform:rotate(var(--card-angle))!important}}

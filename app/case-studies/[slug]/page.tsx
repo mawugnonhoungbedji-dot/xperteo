@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return <>
     <nav className="wrap breadcrumb" aria-label="Fil d’Ariane"><Link href="/">Accueil</Link><span>/</span><Link href="/case-studies">Réalisations</Link><span>/</span><span>{p.name}</span></nav>
-    <PageIntro label={p.category.toUpperCase()} title={p.name} description={p.intro} />
+    <PageIntro campaign="project" label={p.category.toUpperCase()} title={p.name} description={p.intro} />
     <div className="wrap intro-actions"><a className="button purple" href={p.url} target="_blank" rel="noopener noreferrer">Visiter le site ↗</a><span>Conception · Copywriting · Design · Développement · Mise en ligne</span></div>
     <figure className="wrap project-large"><Image src={p.image} alt={"Page d’accueil de " + p.name} width={p.imageWidth || 1348} height={p.imageHeight || 928} sizes="(max-width: 800px) 100vw, 1200px" priority /><figcaption>Capture du site le {p.capturedAt}. Le site peut évoluer depuis cette présentation.</figcaption></figure>
     {p.work && <nav className="wrap project-toc" aria-label="Dans cette réalisation"><a href="#contexte">Le besoin</a><a href="#intervention">Notre travail</a><a href="#parcours">Le parcours</a><a href="#bilan">Le résultat</a></nav>}

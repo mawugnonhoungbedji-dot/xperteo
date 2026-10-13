@@ -5,8 +5,8 @@ export const metadata = { ...meta("Confidentialité", "Comment les demandes et l
 
 export default function Page() {
   return <>
-    <PageIntro label="CONFIDENTIALITÉ" title="Vos informations ont une fonction précise." description="Comment nous recevons vos demandes, utilisons vos coordonnées et conservons vos échanges." />
-    <section className="wrap content-section readable prose">
+    <PageIntro campaign="privacy" label="CONFIDENTIALITÉ" title="Vos informations ont une fonction précise." description="Comment nous recevons vos demandes, utilisons vos coordonnées et conservons vos échanges." />
+    <section id="donnees" className="wrap content-section readable prose">
       <h2>Responsable du traitement</h2>
       <p>{site.editor}, éditeur du site XpertEO et établi au Bénin, est votre interlocuteur pour le traitement des demandes. Contact : <a href={"mailto:" + site.email}>{site.email}</a> ou <a href={"tel:" + site.phone}>{site.phoneDisplay}</a>.</p>
       <h2>Demandes de diagnostic et de contact</h2>

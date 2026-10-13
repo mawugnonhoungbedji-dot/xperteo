@@ -22,6 +22,37 @@ export function GsapEffects() {
         ignoreMobileResize: true,
       });
 
+      document.querySelectorAll<HTMLElement>(".brand-visual").forEach((frame) => {
+        const image = frame.querySelector("img");
+        if (!image || frame.closest(".campaign-hero")) return;
+        gsap.fromTo(image, { scale: 1.06 }, {
+          scale: 1, duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: frame, start: "top 92%", once: true },
+        });
+        if (!isMobile) {
+          gsap.fromTo(frame.querySelectorAll("figcaption, .brand-frame-label, .brand-depth-word"), { y: 8 }, {
+            y: -4, ease: "none",
+            scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: 1 },
+          });
+        }
+      });
+
+      if (!isMobile) {
+        document.querySelectorAll<HTMLElement>(".project-backdrop-card").forEach((card, index) => {
+          const angle = parseFloat(getComputedStyle(card).getPropertyValue("--card-angle")) || 0;
+          gsap.fromTo(card, { y: 28 + index * 12, rotation: angle - 3 }, {
+            y: -28 - index * 12, rotation: angle + 3, ease: "none",
+            scrollTrigger: { trigger: card.closest(".brand-stage-scene"), start: "top bottom", end: "bottom top", scrub: 1 },
+          });
+        });
+        document.querySelectorAll(".brand-stage-scene").forEach((depthScene) => {
+          gsap.fromTo(depthScene.querySelector(".brand-stage-word"), { x: 18 }, {
+            x: -18, ease: "none",
+            scrollTrigger: { trigger: depthScene, start: "top bottom", end: "bottom top", scrub: 1 },
+          });
+        });
+      }
+
       // -------------------------------------------------------------
       // 1. HERO ENTRANCE (Initial load sequence)
       // -------------------------------------------------------------

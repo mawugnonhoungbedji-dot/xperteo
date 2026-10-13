@@ -1,0 +1,8 @@
+{
+  "name": "silence-v2",
+  "prompt": "Edit this exact fictional XpertEO privacy portrait: ONLY fix the cutoff shoulders and arms at the image edges. Preserve exactly same man's face and identity, curly hair, beard, expression, the same index finger vertically touching his lips in shh gesture, purple shirt with lime asterisk and white XpertEO embroidery, lighting and sharpness. Outpaint / reframe the portrait from head to waist so both shoulders, both complete upper arms and elbows, the raised hand and wrist are fully visible and do not touch canvas edges. Other arm relaxed naturally with hand visible at waist. Leave 5-7% transparent margin on both sides around widest part of elbows; no clipped shoulder, sleeve, elbow, hand or fingers. Keep head and gesture prominent, natural proportions; no legs or feet. End clothing at waist below hands. Premium photorealistic transparent alpha cutout, no background, no blur, no gradients, no added text.",
+  "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-52a7f62c-ff30-40fd-b3d9-9b35946449af.png",
+  "reference": "public/images/brand/silence.master.png",
+  "exportMethod": "3072 x 3840 WebP enlargement, not native 4K.",
+  "output": "public/images/brand/silence-v2.cutout.4k.webp"
+}

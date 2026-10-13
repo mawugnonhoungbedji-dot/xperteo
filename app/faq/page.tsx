@@ -10,4 +10,4 @@ export default async function Page() { let extra: {
 }[] = []; try {
     extra = await getPublished("faq");
 }
-catch { } return <><PageIntro label="QUESTIONS FRÉQUENTES" title="Des réponses claires, avant de vous lancer." description="Ce qu’il faut savoir pour cadrer un projet avec XpertEO."/><section className="wrap content-section readable faq-list">{[...faqs, ...extra.map(a => [a.title, a.content])].map(([q, a]) => <details className="answer-box" key={q}><summary>{q}<span className="plus">+</span></summary><p>{a}</p></details>)}</section></>; }
+catch { } return <><PageIntro campaign="faq" label="QUESTIONS FRÉQUENTES" title="Des réponses claires, avant de vous lancer." description="Ce qu’il faut savoir pour cadrer un projet avec XpertEO."/><section id="questions" className="wrap content-section readable faq-list">{[...faqs, ...extra.map(a => [a.title, a.content])].map(([q, a]) => <details className="answer-box" key={q}><summary>{q}<span className="plus">+</span></summary><p>{a}</p></details>)}</section></>; }

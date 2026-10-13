@@ -1,0 +1,75 @@
+{
+  "assets": [
+    {
+      "file": "drone.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 133490
+    },
+    {
+      "file": "face.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 176640
+    },
+    {
+      "file": "low-angle.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 122276
+    },
+    {
+      "file": "point-left.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 147824
+    },
+    {
+      "file": "point-right.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 144850
+    },
+    {
+      "file": "profile.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 130436
+    },
+    {
+      "file": "seated.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 118124
+    },
+    {
+      "file": "walking.cutout.webp",
+      "alpha": [
+        0,
+        255
+      ],
+      "bytes": 97806
+    }
+  ],
+  "typescript": "pass",
+  "responsive_checked": [
+    375,
+    1440
+  ],
+  "hero_variant": "original photo",
+  "grain": "CSS section overlay"
+}

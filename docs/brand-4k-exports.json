@@ -1,0 +1,184 @@
+{
+  "method": "Lanczos3 enlargement from original PNG masters, gentle sharpening, WebP quality 96. Reading portrait restored with image_gen. Exports are not native 4K generation.",
+  "assets": [
+    {
+      "filename": "drone.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\drone.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-fca747bf-d10d-4de9-bff5-72441475ccb6.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 913932
+    },
+    {
+      "filename": "point-left.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\point-left.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-a905e308-1294-4eb0-a09f-03fcda685d67.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 1007530
+    },
+    {
+      "filename": "profile.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\profile.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-976566d4-1ca1-4d97-81f2-96098acdc44c.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 889464
+    },
+    {
+      "filename": "low-angle.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\low-angle.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-048d8f06-c7c9-47d6-8b53-5f1cf22bf1e3.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 770408
+    },
+    {
+      "filename": "face.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\face.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-c46d862b-e25a-4a77-887c-f23e0fe769eb.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 1196560
+    },
+    {
+      "filename": "point-right.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\point-right.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-639d2bf3-c042-4929-b8ec-b15d6c923ac9.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 1006364
+    },
+    {
+      "filename": "walking.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\walking.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-e80a23d5-490f-40b6-bc59-3d17afdb498e.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 591398
+    },
+    {
+      "filename": "seated.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\seated.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-b34f7581-ad8a-47fe-98c1-444ebb838e70.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 765574
+    },
+    {
+      "filename": "reading.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\reading.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-cc3d3df9-c16a-4fc8-8841-e8bcef866638.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 589442
+    },
+    {
+      "filename": "calling.cutout.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\calling.cutout.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-4faf0ad9-5167-4c37-adaf-e15ba16d98ae.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": true,
+      "bytes": 580736
+    },
+    {
+      "filename": "drone.4k.webp",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\drone.4k.webp",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-52e1b515-494f-428a-9bf1-a31df39e72c0.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ],
+      "transparent": false,
+      "bytes": 998996
+    }
+  ],
+  "restoration": {
+    "tool": "Built-in image_gen",
+    "prompt": "High-resolution image restoration / super-resolution EDIT of the reference. Deliver a genuinely detailed 4K portrait image, 3072 x 3840 pixels, longest edge 3840. Preserve this exact fictional XpertEO model, face, hair, pose reading the same booklet, embroidered lime six-ray asterisk and exact white XpertEO wordmark, violet shirt, cream trousers and full-body framing. Reconstruct fine natural detail in eyelashes, hair curls, beard, fingers, woven fabric, seams and embroidery; remove compression blocks and blurry edges, without changing anatomy, identity or wardrobe. Background must remain truly transparent alpha. Remove all white blocks / stray background pixels / halos around legs and silhouette. Clean antialiased edges, no studio or floor or baked shadow, no extra grain or texture. This is a production 4K master, not a low-resolution preview. Preserve all proportions, do not add objects or text.",
+    "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-cc3d3df9-c16a-4fc8-8841-e8bcef866638.png",
+    "nativeSize": [
+      1122,
+      1402
+    ],
+    "exportSize": [
+      3072,
+      3840
+    ],
+    "method": "Restoration followed by high-quality enlargement; not native 4K generation."
+  }
+}

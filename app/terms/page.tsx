@@ -6,8 +6,8 @@ export const metadata = { ...meta("Mentions légales", "Éditeur, hébergement e
 
 export default function Page() {
   return <>
-    <PageIntro label="MENTIONS LÉGALES" title="Informations sur l’éditeur." description="Les coordonnées de l’éditeur et les prestataires du site XpertEO." />
-    <section className="wrap content-section readable prose">
+    <PageIntro campaign="terms" label="MENTIONS LÉGALES" title="Informations sur l’éditeur." description="Les coordonnées de l’éditeur et les prestataires du site XpertEO." />
+    <section id="informations" className="wrap content-section readable prose">
       <h2>Éditeur et publication</h2>
       <p>Le site XpertEO est édité par {site.editor}, personne physique établie au Bénin et responsable de la publication.</p>
       <p>XpertEO est une équipe spécialisée en growth marketing et en acquisition de clients : référencement naturel (SEO), visibilité dans les recherches IA et conversion. La création de sites internet fait partie de son offre complète.</p>

@@ -1,0 +1,18 @@
+{
+  "tool": "Built-in image_gen",
+  "transparent_background": true,
+  "images": [
+    {
+      "name": "reading",
+      "prompt": "Create ONE new photorealistic campaign cutout. Reference image is identity and brand wardrobe reference: preserve the exact same fictional Black male model, natural short curls, neat beard, purple XpertEO overshirt with lime six-ray asterisk and white exact XpertEO embroidery, cream trousers, plain off-white shoes. Resources page: full-body standing three-quarter pose, holding an open cream paper document booklet with both hands at mid-chest, reading it attentively with eyes down, document pages have subtle unidentifiable gray lines, no readable text. Entire head, hands, objects and shoes within frame, generous 8% safe margins. Portrait 4:5 framing, clean soft photographic studio lighting, real fabric and skin. Genuinely transparent alpha background, no studio, no floor, no cast floor shadow, no gradient, no grain/noise added, no extra logos or watermark. Sharp clean silhouette for layering over CSS gradients and typography.",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-f07416fa-b656-415a-ac18-46f6c70813bb.png",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\reading.cutout.webp"
+    },
+    {
+      "name": "calling",
+      "prompt": "Create ONE new photorealistic campaign cutout. Reference image is identity and brand wardrobe reference: preserve the exact same fictional Black male model, natural short curls, neat beard, purple XpertEO overshirt with lime six-ray asterisk and white exact XpertEO embroidery, cream trousers, plain off-white shoes. Contact page: full-body standing in a relaxed stance, holding an unbranded black smartphone to his right ear with right hand, smiling naturally during a phone conversation, free left hand gesturing gently. Entire head, hands, objects and shoes within frame, generous 8% safe margins. Portrait 4:5 framing, clean soft photographic studio lighting, real fabric and skin. Genuinely transparent alpha background, no studio, no floor, no cast floor shadow, no gradient, no grain/noise added, no extra logos or watermark. Sharp clean silhouette for layering over CSS gradients and typography.",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-4faf0ad9-5167-4c37-adaf-e15ba16d98ae.png",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\calling.cutout.webp"
+    }
+  ]
+}

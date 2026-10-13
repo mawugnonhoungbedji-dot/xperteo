@@ -1,0 +1,51 @@
+{
+  "reference": "public/images/brand/face.cutout.webp",
+  "images": [
+    {
+      "name": "law",
+      "prompt": "Create a premium photorealistic editorial campaign cutout of the SAME fictional adult man in reference: West African Black man about 30, short curly natural hair and short beard. Preserve identity, realistic skin, premium warm studio lighting, exceptionally sharp high detail. Transparent alpha background, no backdrop, no typography outside clothing, no noise or gradient baked in. Portrait canvas, subject fills canvas with small headroom. Waist-up three-quarter portrait wearing a French-style black lawyer robe with white jabot, subtle purple inner trim and discreet lime six-ray asterisk with white XpertEO embroidery on chest matching reference brand. Holding a closed legal dossier at waist. Composed confident approachable expression. No feet, no furniture.",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-361f913d-e1a4-4d8a-b0be-644fbb099999.png",
+      "master": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\law.master.png",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\law.cutout.4k.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ]
+    },
+    {
+      "name": "silence",
+      "prompt": "Create a premium photorealistic editorial campaign cutout of the SAME fictional adult man in reference: West African Black man about 30, short curly natural hair and short beard. Preserve identity, realistic skin, premium warm studio lighting, exceptionally sharp high detail. Transparent alpha background, no backdrop, no typography outside clothing, no noise or gradient baked in. Portrait canvas, subject fills canvas with small headroom. Very large close-up from head to mid-chest wearing exact purple XpertEO shirt and lime asterisk/white XpertEO chest logo. Looking directly at camera, gently holding ONE index finger vertically against closed lips in the familiar quiet/shh gesture. Natural anatomically correct hand and fingers, friendly calm eyes. Entire hair and hand visible. No feet. Tight dramatic portrait for privacy section.",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-18fc347e-b1f9-4948-a049-0127d88d48e4.png",
+      "master": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\silence.master.png",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\silence.cutout.4k.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ]
+    },
+    {
+      "name": "computer",
+      "prompt": "Create a premium photorealistic editorial campaign cutout of the SAME fictional adult man in reference: West African Black man about 30, short curly natural hair and short beard. Preserve identity, realistic skin, premium warm studio lighting, exceptionally sharp high detail. Transparent alpha background, no backdrop, no typography outside clothing, no noise or gradient baked in. Portrait canvas, subject fills canvas with small headroom. Waist-up front three-quarter portrait sitting working behind an open slim silver unbranded laptop, fingers naturally on keyboard, eyes lifted slightly toward viewer, focused warm expression. Exact purple XpertEO shirt with lime asterisk and white XpertEO logo. Laptop back faces viewer and remains fully visible across lower foreground; small clean desk edge at bottom only. No legs or feet. All background around man and laptop is transparent, no room, no additional screens.",
+      "source": "C:\\Users\\erica\\.codex\\generated_images\\01a13537-915c-7ff3-89d3-3a8fe22222a1\\exec-f33fc804-dc20-4c90-a557-12f7600b8ce8.png",
+      "master": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\computer.master.png",
+      "output": "C:\\Users\\erica\\Downloads\\XpertEO-code-complet\\xperteo\\public\\images\\brand\\computer.cutout.4k.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "exportSize": [
+        3072,
+        3840
+      ]
+    }
+  ],
+  "exportMethod": "3072 x 3840 WebP enlargement from generated PNG masters; not native 4K generation."
+}
